@@ -1,0 +1,10 @@
+{
+    "type": "sftp",
+    "host": "10.6.120.5",
+    "username": "pi",
+    "password": "benny",
+    "port": 22,
+    "remotePath": "/home/pi/smarthome/",
+    "uploadOnSave": true,
+    "uploadConfigFile": true
+}

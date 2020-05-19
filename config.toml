@@ -1,5 +1,5 @@
 title = "bennyhome gpio configuratie"
 
 [GPIO]
-Buttons = [2, 3, 4]
-Relays = [14, 15, 18]
+Buttons = [1,3,4]
+Relays = [5,6,13]

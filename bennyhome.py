@@ -5,12 +5,13 @@ Rapsi code voor huisje
 '''
 
 __author__ = "Frédèrick Franck"
-__version__ = "1.0.0"
+__version__ = "2.0.0"
 __license__ = "MIT"
 
 from gpiozero import DigitalOutputDevice
 from gpiozero import Button
 import toml
+import time
 
 # GPIO PINS LADEN UIT DE CONFIG
 CONFIG = toml.load('config.toml')
@@ -25,8 +26,7 @@ relays = []
 def initialize_buttons():
     global buttons
     for pin in BUTTON_PINS:
-        buttons.append(Button(pin=pin))
-        press_count.append(0)
+        buttons.append(Button(pin=pin, bounce_time=1))
 
 
 # Maak een lijst aan met Relays
@@ -34,19 +34,19 @@ def initialize_relays():
     global relays
     for pin in RELAY_PINS:
         relays.append(DigitalOutputDevice(pin=pin, active_high=True,
-                                          initial_value=False))
+                                          initial_value=True))
 
 
 # Geeft de staat van de button terug
 def check_button(index):
     button = buttons[index]
     relay = relays[index]
-    if(check_button(button)):
+    if(get_button(button)):
         toggle_relay(relay)
 
 
 # Geeft de staat van de relay terug
-def check_button(button):
+def get_button(button):
     return button.value
 
 
@@ -60,6 +60,8 @@ def loop():
     while True:
         for index in range(len(buttons)):
             check_button(index)
+
+
 
 # Main functie
 def main():
